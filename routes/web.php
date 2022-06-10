@@ -16,8 +16,12 @@ Route::post('/profile', [App\Http\Controllers\Auth\ProfileController::class, 'up
 Route::get('/change-password', [App\Http\Controllers\Auth\ChangePasswordController::class, 'index']);
 Route::post('/change-password', [App\Http\Controllers\Auth\ChangePasswordController::class, 'update']);
 
+// ROLE ATASAN
 Route::get('/atasan/home', [App\Http\Controllers\Role\Atasan\HomeController::class, 'index']);
 
+// ROLE ADMIN
 Route::get('/admin/home', [App\Http\Controllers\Role\Admin\HomeController::class, 'index']);
+Route::resource('/admin/klasifikasi', App\Http\Controllers\Role\Admin\KlasifikasiSuratController::class);
 
+// ROLE PETUGAS
 Route::get('/petugas/home', [App\Http\Controllers\Role\Petugas\HomeController::class, 'index']);

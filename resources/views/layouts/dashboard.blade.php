@@ -73,9 +73,15 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Dashboard</li>
-                        <li class="active">
-                            <a class="nav-link" href="blank.html">
+                        <li class="">
+                            <a class="nav-link" href="#">
                                 <i class="fas fa-fire"></i> <span>Home Page</span>
+                            </a>
+                        </li>
+                        <li class="menu-header">Master Data</li>
+                        <li class="{{ ($active == 'klasifikasi') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/admin/klasifikasi', []) }}">
+                                <i class="fas fa-layer-group"></i> <span>Klasifikasi Surat</span>
                             </a>
                         </li>
                         {{-- <li class="dropdown">
