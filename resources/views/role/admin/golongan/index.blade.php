@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Klasifikasi Surat</h1>
+        <h1>Golongan</h1>
     </div>
 
     <div class="section-body">
@@ -11,13 +11,12 @@
         <div class="card">
             <div class="card-header">
                 <h4>
-                    <a href="{{ url('/admin/klasifikasi/create', []) }}" class="btn btn-primary">
+                    <a href="{{ url('/admin/golongan/create', []) }}" class="btn btn-primary">
                         <i class="fas fa-plus-circle"></i> Create New
-
                     </a>
                 </h4>
                 <div class="card-header-action">
-                    <form action="{{ url('/admin/klasifikasi', []) }}" method="GET">
+                    <form action="{{ url('/admin/golongan', []) }}" method="GET">
                         <div class="input-group">
                             <input type="search" class="form-control" name="keyword" placeholder="Search" value="{{ $request['keyword'] ?? '' }}">
                             <div class="input-group-btn">
@@ -33,28 +32,24 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Kode</th>
-                                <th scope="col">Uraian</th>
+                                <th scope="col">Golongan</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($klasifikasis as $klasifikasi)
+                            @forelse ($golongans as $golongan)
                             <tr>
                                 <th scope="row">
-                                    {{ ($klasifikasis->currentPage() - 1) * $klasifikasis->perPage() + $loop->iteration }}
+                                    {{ ($golongans->currentPage() - 1) * $golongans->perPage() + $loop->iteration }}
                                 </th>
-                                <td>{{ $klasifikasi->nama }}</td>
-                                <td>{{ $klasifikasi->kode }}</td>
-                                <td>{{ $klasifikasi->uraian }}</td>
+                                <td>{{ $golongan->golongan }}</td>
                                 <td>
-                                    <a href="{{ url('/admin/klasifikasi/'.$klasifikasi->id.'/edit', []) }}" class="btn btn-sm btn-warning">Edit</a>
-                                    <a class="btn btn-sm btn-danger" href="{{ url('/admin/klasifikasi/'.$klasifikasi->id, []) }}" onclick="event.preventDefault();document.getElementById('delete-{{ $klasifikasi->id }}').submit();">
+                                    <a href="{{ url('/admin/golongan/'.$golongan->id.'/edit', []) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a class="btn btn-sm btn-danger" href="{{ url('/admin/golongan/'.$golongan->id, []) }}" onclick="event.preventDefault();document.getElementById('delete-{{ $golongan->id }}').submit();">
                                         Delete
                                     </a>
 
-                                    <form id="delete-{{ $klasifikasi->id }}" action="{{ url('/admin/klasifikasi/'.$klasifikasi->id, []) }}" method="POST" class="d-none">
+                                    <form id="delete-{{ $golongan->id }}" action="{{ url('/admin/golongan/'.$golongan->id, []) }}" method="POST" class="d-none">
                                         @csrf @method("DELETE")
                                     </form>
 
@@ -63,7 +58,7 @@
                             @empty
                             <tr>
                                 <td colspan="5" class="text-center text-danger">
-                                    Klasifikasi surat has empty or not found
+                                    Golongan has empty or not found
                                 </td>
                             </tr>
                             @endforelse
@@ -71,7 +66,7 @@
                     </table>
 
                     <div class="pl-4">
-                        {{ $klasifikasis->appends($request)->links() }}
+                        {{ $golongans->appends($request)->links() }}
                     </div>
                 </div>
             </div>

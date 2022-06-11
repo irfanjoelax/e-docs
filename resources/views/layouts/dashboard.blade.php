@@ -84,6 +84,11 @@
                                 <i class="fas fa-layer-group"></i> <span>Klasifikasi Surat</span>
                             </a>
                         </li>
+                        <li class="{{ ($active == 'golongan') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/admin/golongan', []) }}">
+                                <i class="fas fa-user-tie"></i> <span>Golongan</span>
+                            </a>
+                        </li>
                         {{-- <li class="dropdown">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>
                             <ul class="dropdown-menu">

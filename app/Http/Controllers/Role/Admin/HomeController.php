@@ -9,6 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('role.admin.home');
+        return view('role.admin.home', [
+            'active' => 'home'
+        ]);
     }
 }

@@ -22,6 +22,7 @@ Route::get('/atasan/home', [App\Http\Controllers\Role\Atasan\HomeController::cla
 // ROLE ADMIN
 Route::get('/admin/home', [App\Http\Controllers\Role\Admin\HomeController::class, 'index']);
 Route::resource('/admin/klasifikasi', App\Http\Controllers\Role\Admin\KlasifikasiSuratController::class);
+Route::resource('/admin/golongan', App\Http\Controllers\Role\Admin\GolonganController::class);
 
 // ROLE PETUGAS
 Route::get('/petugas/home', [App\Http\Controllers\Role\Petugas\HomeController::class, 'index']);
