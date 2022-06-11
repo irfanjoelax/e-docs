@@ -15,6 +15,10 @@ class GolonganSeeder extends Seeder
     public function run()
     {
         Golongan::create([
+            'golongan' => 'Golongan untuk Honor',
+        ]);
+
+        Golongan::create([
             'golongan' => 'I/a Juru Muda',
         ]);
 

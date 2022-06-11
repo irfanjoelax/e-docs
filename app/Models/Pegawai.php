@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Golongan extends Model
+class Pegawai extends Model
 {
     use HasFactory;
 
@@ -16,8 +16,13 @@ class Golongan extends Model
      */
     protected $guarded = [];
 
-    public function pegawai()
+    public function golongan()
     {
-        return $this->belongsTo('App\Models\Pegawai');
+        return $this->hasOne('App\Models\Golongan', 'id', 'golongan_id');
+    }
+
+    public function jabatan()
+    {
+        return $this->hasOne('App\Models\Jabatan', 'id', 'jabatan_id');
     }
 }

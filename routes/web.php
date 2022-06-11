@@ -24,6 +24,7 @@ Route::get('/admin/home', [App\Http\Controllers\Role\Admin\HomeController::class
 Route::resource('/admin/klasifikasi', App\Http\Controllers\Role\Admin\KlasifikasiSuratController::class)->except('show');
 Route::resource('/admin/golongan', App\Http\Controllers\Role\Admin\GolonganController::class)->except('show');
 Route::resource('/admin/jabatan', App\Http\Controllers\Role\Admin\JabatanController::class)->except('show');
+Route::resource('/admin/pegawai', App\Http\Controllers\Role\Admin\PegawaiController::class)->except('show');
 
 // ROLE PETUGAS
 Route::get('/petugas/home', [App\Http\Controllers\Role\Petugas\HomeController::class, 'index']);
