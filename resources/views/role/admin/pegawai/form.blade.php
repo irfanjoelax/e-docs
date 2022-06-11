@@ -75,7 +75,6 @@
                                 <input type="radio" value="honor" id="honor" name="status" class="custom-control-input" @if ($isEdit) {{ ($pegawai->status == 'honor') ? 'checked' : '' }} @endif>
                                 <label class="custom-control-label" for="honor">Honor</label>
                             </div>
-
                         </div>
                     </div>
                     <div class="form-group row">
