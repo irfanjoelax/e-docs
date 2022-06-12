@@ -104,6 +104,13 @@
                                 <i class="fas fa-users-cog"></i> <span>User / Pengguna</span>
                             </a>
                         </li>
+                        <li class="menu-header">Management</li>
+                        <li class="{{ ($active == 'instansi') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/admin/instansi', []) }}">
+                                <i class="fas fa-building"></i> <span>Profile Instansi</span>
+                            </a>
+                        </li>
+
 
                         {{-- <li class="dropdown">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>

@@ -11,7 +11,7 @@
 
     <!-- Tab Bar -->
     <link rel="shortcut icon" href="{{ asset('images/logo.svg') }}" />
-    <title>{{ env('APP_NAME') }}</title>
+    <title>{{ str_replace('-', ' ', env('APP_NAME')) }}</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/bootstrap/css/bootstrap.min.css">

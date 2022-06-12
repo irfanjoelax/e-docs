@@ -3,29 +3,21 @@
 namespace App\Http\Controllers\Role\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Instansi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class InstansiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, User $users)
+    public function index()
     {
-        $keyword = $request->input('keyword');
-
-        $users = $users->when($keyword, function ($query) use ($keyword) {
-            return $query->where('name', 'like', '%' . $keyword . '%');
-        })->latest()->paginate(10);
-
-        return view('role.admin.user.index', [
-            'active'    => 'user',
-            'request'   => $request->all(),
-            'users'     => $users
+        return view('role.admin.instansi.form', [
+            'active'    => 'instansi',
+            'instansi'  => Instansi::find(1)
         ]);
     }
 
@@ -36,11 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('role.admin.user.form', [
-            'active'    => 'user',
-            'isEdit'    => false,
-            'url'       => url('/admin/user'),
-        ]);
+        //
     }
 
     /**
@@ -51,15 +39,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => Hash::make('123456'),
-            'role'      => $request->role,
-        ]);
-
-        return redirect('/admin/user')
-            ->with('alert-primary', 'Data user pengguna has been created');
+        //
     }
 
     /**
@@ -93,7 +73,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Instansi::find($id)->update([
+            'nama'      => $request->nama,
+            'pimpinan'  => $request->pimpinan,
+            'telepon'   => $request->telepon,
+            'email'     => $request->email,
+            'alamat'    => $request->alamat,
+            'profile'   => $request->profile,
+            'visi_misi' => $request->visi_misi,
+        ]);
+
+        return redirect('/admin/instansi')
+            ->with('alert-warning', 'Profile instansi has been updated');
     }
 
     /**
@@ -104,9 +95,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-
-        return redirect('/admin/user')
-            ->with('alert-danger', 'Data user pengguna has been deleted');
+        //
     }
 }
