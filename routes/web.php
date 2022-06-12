@@ -30,3 +30,5 @@ Route::resource('/admin/instansi', App\Http\Controllers\Role\Admin\InstansiContr
 
 // ROLE PETUGAS
 Route::get('/petugas/home', [App\Http\Controllers\Role\Petugas\HomeController::class, 'index']);
+Route::resource('/petugas/surat-keluar', App\Http\Controllers\Role\Petugas\SuratKeluarController::class)->except('show', 'destroy');
+Route::get('/petugas/surat-keluar/download/{id}', [App\Http\Controllers\Role\Petugas\SuratKeluarController::class, 'download']);
