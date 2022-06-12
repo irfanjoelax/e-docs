@@ -66,7 +66,8 @@
                                                 <i class="fas fa-file-download"></i> <span class="ml-2">Download</span>
 
                                             </a>
-                                            <a class="dropdown-item Edit" href="{{ url('/petugas/surat-keluar/'.$suratKeluar->id.'/edit', []) }}">
+                                            <a class="dropdown-item Edit" href="{{ url('/petugas/surat-keluar/qr-code/'.$suratKeluar->id, []) }}">
+
                                                 <i class="fas fa-qrcode"></i> <span class="ml-2">Generate QR</span>
                                             </a>
                                         </div>

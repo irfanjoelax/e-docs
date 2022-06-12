@@ -8,6 +8,7 @@ use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class SuratKeluarController extends Controller
 {
@@ -68,6 +69,7 @@ class SuratKeluarController extends Controller
             'tgl_keluar'        => $request->tgl_keluar,
             'keterangan'        => $request->keterangan,
             'file'              => $nameFile,
+            'read'              => 'no',
             'user_id'           => Auth::id(),
         ]);
 
@@ -154,5 +156,15 @@ class SuratKeluarController extends Controller
     {
         $suratKeluar = SuratKeluar::find($id);
         return Storage::download('surat-keluar/' . $suratKeluar->file);
+    }
+
+    public function generateQR($id)
+    {
+        $suratKeluar = SuratKeluar::find($id);
+        $fileQR = 'storage/' . str_replace(' ', '-', strtolower($suratKeluar->perihal) . '.svg');
+        $redirectQR = url('/petugas/surat-keluar/download/' . $id);
+        QrCode::format('svg')->size(500)->generate($redirectQR, $fileQR);
+
+        return response()->download($fileQR);
     }
 }
