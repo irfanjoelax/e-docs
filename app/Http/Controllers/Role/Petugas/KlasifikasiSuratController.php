@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Role\Admin;
+namespace App\Http\Controllers\Role\Petugas;
 
 use App\Http\Controllers\Controller;
 use App\Models\Klasifikasi;
@@ -21,7 +21,7 @@ class KlasifikasiSuratController extends Controller
             return $query->where('nama', 'like', '%' . $keyword . '%');
         })->latest()->paginate(10);
 
-        return view('role.admin.klasifikasi.index', [
+        return view('role.petugas.klasifikasi.index', [
             'active'        => 'klasifikasi',
             'request'       => $request->all(),
             'klasifikasis'  => $klasifikasis
@@ -35,10 +35,10 @@ class KlasifikasiSuratController extends Controller
      */
     public function create()
     {
-        return view('role.admin.klasifikasi.form', [
+        return view('role.petugas.klasifikasi.form', [
             'active'    => 'klasifikasi',
             'isEdit'    => false,
-            'url'       => url('/admin/klasifikasi'),
+            'url'       => url('/petugas/klasifikasi'),
         ]);
     }
 
@@ -56,7 +56,7 @@ class KlasifikasiSuratController extends Controller
             'uraian'    => $request->uraian,
         ]);
 
-        return redirect('/admin/klasifikasi')
+        return redirect('/petugas/klasifikasi')
             ->with('alert-primary', 'Klasifikasi surat has been created');
     }
 
@@ -79,10 +79,10 @@ class KlasifikasiSuratController extends Controller
      */
     public function edit($id)
     {
-        return view('role.admin.klasifikasi.form', [
+        return view('role.petugas.klasifikasi.form', [
             'active'        => 'klasifikasi',
             'isEdit'        => true,
-            'url'           => url('/admin/klasifikasi/' . $id),
+            'url'           => url('/petugas/klasifikasi/' . $id),
             'klasifikasi'   => Klasifikasi::find($id),
         ]);
     }
@@ -102,7 +102,7 @@ class KlasifikasiSuratController extends Controller
             'uraian'    => $request->uraian,
         ]);
 
-        return redirect('/admin/klasifikasi')
+        return redirect('/petugas/klasifikasi')
             ->with('alert-warning', 'Klasifikasi surat has been updated');
     }
 
@@ -116,7 +116,7 @@ class KlasifikasiSuratController extends Controller
     {
         Klasifikasi::find($id)->delete();
 
-        return redirect('/admin/klasifikasi')
+        return redirect('/petugas/klasifikasi')
             ->with('alert-danger', 'Klasifikasi surat has been deleted');
     }
 }

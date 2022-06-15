@@ -5,19 +5,14 @@
     </a>
 </li>
 <li class="menu-header">Master Data</li>
-<li class="{{ ($active == 'klasifikasi') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ url('/admin/klasifikasi', []) }}">
-        <i class="fas fa-layer-group"></i> <span>Klasifikasi Surat</span>
+<li class="{{ ($active == 'jabatan') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ url('/admin/jabatan', []) }}">
+        <i class="fas fa-sitemap"></i> <span>Jabatan</span>
     </a>
 </li>
 <li class="{{ ($active == 'golongan') ? 'active' : '' }}">
     <a class="nav-link" href="{{ url('/admin/golongan', []) }}">
         <i class="fas fa-user-tie"></i> <span>Golongan</span>
-    </a>
-</li>
-<li class="{{ ($active == 'jabatan') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ url('/admin/jabatan', []) }}">
-        <i class="fas fa-sitemap"></i> <span>Jabatan</span>
     </a>
 </li>
 <li class="{{ ($active == 'pegawai') ? 'active' : '' }}">

@@ -8,17 +8,47 @@
 
     <div class="section-body">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-primary">
-                        <i class="far fa-user"></i>
+                        <i class="fas fa-layer-group"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Admin</h4>
+                            <h4>Klasifikasi Surat</h4>
                         </div>
                         <div class="card-body">
-                            10
+                            {{ $totalKlasifikasiSurat }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Surat Masuk</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $totalSuratMasuk }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <i class="fas fa-envelope-open"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Surat Keluar</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $totalSuratKeluar }}
                         </div>
                     </div>
                 </div>
@@ -28,9 +58,6 @@
         <div class="row">
             <div class="col-md-4 mb-3">
                 <img src="{{ asset('storage/default-gambar-instansi.png') }}" class="img-fluid rounded">
-                <div class="mt-3 table-responsive">
-
-                </div>
             </div>
             <div class="col-md-8 mb-3 table-responsive">
                 <table class="table table-sm table-striped">

@@ -1,5 +1,20 @@
 <?php
 
+use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Role\Admin\GolonganController;
+use App\Http\Controllers\Role\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Role\Admin\InstansiController;
+use App\Http\Controllers\Role\Admin\JabatanController;
+use App\Http\Controllers\Role\Admin\PegawaiController;
+use App\Http\Controllers\Role\Admin\UserController;
+use App\Http\Controllers\Role\Atasan\HomeController as AtasanHomeController;
+use App\Http\Controllers\Role\Atasan\SuratKeluarController;
+use App\Http\Controllers\Role\Atasan\SuratMasukController;
+use App\Http\Controllers\Role\Petugas\HomeController as PetugasHomeController;
+use App\Http\Controllers\Role\Petugas\KlasifikasiSuratController;
+use App\Http\Controllers\Role\Petugas\SuratKeluarController as PetugasSuratKeluarController;
+use App\Http\Controllers\Role\Petugas\SuratMasukController as PetugasSuratMasukController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -11,25 +26,33 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/profile', [App\Http\Controllers\Auth\ProfileController::class, 'index']);
-Route::post('/profile', [App\Http\Controllers\Auth\ProfileController::class, 'update']);
-Route::get('/change-password', [App\Http\Controllers\Auth\ChangePasswordController::class, 'index']);
-Route::post('/change-password', [App\Http\Controllers\Auth\ChangePasswordController::class, 'update']);
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/profile', [ProfileController::class, 'update']);
+Route::get('/change-password', [ChangePasswordController::class, 'index']);
+Route::post('/change-password', [ChangePasswordController::class, 'update']);
 
 // ROLE ATASAN
-Route::get('/atasan/home', [App\Http\Controllers\Role\Atasan\HomeController::class, 'index']);
+Route::get('/atasan/home', [AtasanHomeController::class, 'index']);
+Route::resource('/atasan/surat-masuk', SuratMasukController::class)->except('store', 'create', 'edit', 'update', 'destroy');
+Route::post('/atasan/surat-masuk/{id}/disposisi/create', [SuratMasukController::class, 'createDisposisi']);
+Route::get('/atasan/surat-masuk/disposisi/delete/{idDisposisi}', [SuratMasukController::class, 'deleteDisposisi']);
+Route::resource('/atasan/surat-keluar', SuratKeluarController::class)->except('store', 'create', 'edit', 'update', 'destroy');
+Route::get('/atasan/surat-keluar/download/{id}', [SuratKeluarController::class, 'download']);
 
 // ROLE ADMIN
-Route::get('/admin/home', [App\Http\Controllers\Role\Admin\HomeController::class, 'index']);
-Route::resource('/admin/klasifikasi', App\Http\Controllers\Role\Admin\KlasifikasiSuratController::class)->except('show');
-Route::resource('/admin/golongan', App\Http\Controllers\Role\Admin\GolonganController::class)->except('show');
-Route::resource('/admin/jabatan', App\Http\Controllers\Role\Admin\JabatanController::class)->except('show');
-Route::resource('/admin/pegawai', App\Http\Controllers\Role\Admin\PegawaiController::class)->except('show');
-Route::resource('/admin/user', App\Http\Controllers\Role\Admin\UserController::class)->except('show', 'edit', 'update');
-Route::resource('/admin/instansi', App\Http\Controllers\Role\Admin\InstansiController::class)->except('show', 'store', 'create', 'destroy');
+Route::get('/admin/home', [AdminHomeController::class, 'index']);
+Route::resource('/admin/golongan', GolonganController::class)->except('show');
+Route::resource('/admin/jabatan', JabatanController::class)->except('show');
+Route::resource('/admin/pegawai', PegawaiController::class)->except('show');
+Route::resource('/admin/user', UserController::class)->except('show', 'edit', 'update');
+Route::resource('/admin/instansi', InstansiController::class)->except('show', 'store', 'create', 'destroy');
 
 // ROLE PETUGAS
-Route::get('/petugas/home', [App\Http\Controllers\Role\Petugas\HomeController::class, 'index']);
-Route::resource('/petugas/surat-keluar', App\Http\Controllers\Role\Petugas\SuratKeluarController::class)->except('show', 'destroy');
-Route::get('/petugas/surat-keluar/download/{id}', [App\Http\Controllers\Role\Petugas\SuratKeluarController::class, 'download']);
-Route::get('/petugas/surat-keluar/qr-code/{id}', [App\Http\Controllers\Role\Petugas\SuratKeluarController::class, 'generateQR']);
+Route::get('/petugas/home', [PetugasHomeController::class, 'index']);
+Route::resource('/petugas/klasifikasi', KlasifikasiSuratController::class)->except('show');
+Route::resource('/petugas/surat-keluar', PetugasSuratKeluarController::class)->except('show', 'destroy');
+Route::get('/petugas/surat-keluar/download/{id}', [PetugasSuratKeluarController::class, 'download']);
+Route::get('/petugas/surat-keluar/qr-code/{id}', [PetugasSuratKeluarController::class, 'generateQR']);
+Route::resource('/petugas/surat-masuk', PetugasSuratMasukController::class)->except('destroy');
+Route::get('/petugas/surat-masuk/download/{id}', [PetugasSuratMasukController::class, 'download']);
+Route::get('/petugas/surat-masuk/disposisi/print/{idDisposisi}', [PetugasSuratMasukController::class, 'printDisposisi']);

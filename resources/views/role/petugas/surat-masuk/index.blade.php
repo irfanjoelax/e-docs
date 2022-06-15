@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Daftar Surat Keluar</h1>
+        <h1>Daftar Surat Masuk</h1>
     </div>
 
     <div class="section-body">
@@ -11,12 +11,12 @@
         <div class="card">
             <div class="card-header">
                 <h4>
-                    <a href="{{ url('/petugas/surat-keluar/create', []) }}" class="btn btn-primary">
+                    <a href="{{ url('/petugas/surat-masuk/create', []) }}" class="btn btn-primary">
                         <i class="fas fa-plus-circle"></i> Create New
                     </a>
                 </h4>
                 <div class="card-header-action">
-                    <form action="{{ url('/petugas/surat-keluar', []) }}" method="GET">
+                    <form action="{{ url('/petugas/surat-masuk', []) }}" method="GET">
                         <div class="input-group">
                             <input type="search" class="form-control" name="keyword" placeholder="Search"
                                 value="{{ $request['keyword'] ?? '' }}">
@@ -36,25 +36,29 @@
                                 <th scope="col">No. Surat</th>
                                 <th scope="col">Kode</th>
                                 <th scope="col">Perihal</th>
-                                <th scope="col">Tujuan</th>
+                                <th scope="col">Asal Surat</th>
                                 <th scope="col">Tgl Surat</th>
-                                <th scope="col">Tgl Keluar</th>
+                                <th scope="col">Tgl Masuk</th>
                                 <th scope="col">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($suratKeluars as $suratKeluar)
+                            @forelse ($suratMasuks as $suratMasuk)
                             <tr>
                                 <th scope="row">
-                                    {{ ($suratKeluars->currentPage() - 1) * $suratKeluars->perPage() + $loop->iteration
-                                    }}
+                                    {{ ($suratMasuks->currentPage() - 1) * $suratMasuks->perPage() + $loop->iteration }}
                                 </th>
-                                <td>{{ $suratKeluar->no_surat }}</td>
-                                <td>{{ $suratKeluar->klasifikasi->kode }}</td>
-                                <td>{{ $suratKeluar->perihal }}</td>
-                                <td>{{ $suratKeluar->tujuan }}</td>
-                                <td>{{ $suratKeluar->tgl_surat }}</td>
-                                <td>{{ $suratKeluar->tgl_keluar }}</td>
+                                <td>
+                                    {{ $suratMasuk->no_surat }}
+                                    <span class="ml-1 {{ ($suratMasuk->dibaca == 'yes') ? 'text-success' : '' }}">
+                                        <i class="fas fa-check-double"></i>
+                                    </span>
+                                </td>
+                                <td>{{ $suratMasuk->klasifikasi->kode }}</td>
+                                <td>{{ $suratMasuk->perihal }}</td>
+                                <td>{{ $suratMasuk->asal_surat }}</td>
+                                <td>{{ $suratMasuk->tgl_surat }}</td>
+                                <td>{{ $suratMasuk->tgl_masuk }}</td>
                                 <td>
                                     <div class="dropdown d-inline">
                                         <button class="btn btn-sm btn-light dropdown-toggle w-100" type="button"
@@ -63,19 +67,22 @@
                                             Action
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item Edit"
-                                                href="{{ url('/petugas/surat-keluar/'.$suratKeluar->id.'/edit', []) }}">
+                                            <a class="dropdown-item"
+                                                href="{{ url('/petugas/surat-masuk/'.$suratMasuk->id.'/edit', []) }}">
                                                 <i class="fas fa-edit"></i> <span class="ml-2">Edit</span>
                                             </a>
-                                            <a class="dropdown-item Edit"
-                                                href="{{ url('/petugas/surat-keluar/download/'.$suratKeluar->id, []) }}">
+                                            <a class="dropdown-item"
+                                                href="{{ url('/petugas/surat-masuk/download/'.$suratMasuk->id, []) }}">
                                                 <i class="fas fa-file-download"></i> <span class="ml-2">Download</span>
-                                            </a>
-                                            <a class="dropdown-item Edit"
-                                                href="{{ url('/petugas/surat-keluar/qr-code/'.$suratKeluar->id, []) }}">
 
-                                                <i class="fas fa-qrcode"></i> <span class="ml-2">Generate QR</span>
                                             </a>
+                                            @if ($suratMasuk->dibaca == 'yes')
+                                            <a class="dropdown-item"
+                                                href="{{ url('/petugas/surat-masuk/'.$suratMasuk->id, []) }}">
+                                                <i class="fas fa-file-alt"></i> <span class="ml-2">Daftar
+                                                    Disposisi</span>
+                                            </a>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -84,7 +91,7 @@
                             @empty
                             <tr>
                                 <td colspan="8" class="text-center text-danger">
-                                    Surat keluar has empty or not found
+                                    Surat masuk has empty or not found
                                 </td>
                             </tr>
                             @endforelse
@@ -92,7 +99,7 @@
                     </table>
 
                     <div class="pl-4">
-                        {{ $suratKeluars->appends($request)->links() }}
+                        {{ $suratMasuks->appends($request)->links() }}
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SuratKeluar extends Model
+class SuratMasuk extends Model
 {
     use HasFactory;
 
@@ -24,5 +24,10 @@ class SuratKeluar extends Model
     public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+
+    public function disposisis()
+    {
+        return $this->hasMany('App\Models\Disposisi');
     }
 }

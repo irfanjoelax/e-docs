@@ -15,19 +15,22 @@
                     <div class="form-group row">
                         <label for="nama" class="col-sm-2 col-form-label">Nama Klasifikasi</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="nama" value="{{ ($isEdit) ? $klasifikasi->nama : '' }}" required>
+                            <input type="text" class="form-control" name="nama"
+                                value="{{ ($isEdit) ? $klasifikasi->nama : '' }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="kode" class="col-sm-2 col-form-label">Kode</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" name="kode" value="{{ ($isEdit) ? $klasifikasi->kode : '' }}" required>
+                            <input type="text" class="form-control" name="kode"
+                                value="{{ ($isEdit) ? $klasifikasi->kode : '' }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="kode" class="col-sm-2 col-form-label">Uraian</label>
                         <div class="col-sm-10">
-                            <textarea name="uraian" rows="2" class="form-control">{{ ($isEdit) ? $klasifikasi->uraian : '' }}</textarea>
+                            <textarea name="uraian" rows="2"
+                                class="form-control">{{ ($isEdit) ? $klasifikasi->uraian : '' }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">

@@ -3,36 +3,37 @@
 namespace App\Http\Controllers\Role\Petugas;
 
 use App\Http\Controllers\Controller;
+use App\Models\Disposisi;
+use App\Models\Instansi;
 use App\Models\Klasifikasi;
-use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class SuratKeluarController extends Controller
+class SuratMasukController extends Controller
 {
-    public function index(Request $request, SuratKeluar $suratKeluars)
+    public function index(Request $request, SuratMasuk $suratMasuks)
     {
         $keyword = $request->input('keyword');
 
-        $suratKeluars = $suratKeluars->when($keyword, function ($query) use ($keyword) {
+        $suratMasuks = $suratMasuks->when($keyword, function ($query) use ($keyword) {
             return $query->where('perihal', 'like', '%' . $keyword . '%');
         })->with('klasifikasi')->latest()->paginate(10);
 
-        return view('role.petugas.surat-keluar.index', [
-            'active'        => 'surat-keluar',
+        return view('role.petugas.surat-masuk.index', [
+            'active'        => 'surat-masuk',
             'request'       => $request->all(),
-            'suratKeluars'  => $suratKeluars
+            'suratMasuks'  => $suratMasuks
         ]);
     }
 
     public function create()
     {
-        return view('role.petugas.surat-keluar.form', [
-            'active'        => 'surat-keluar',
+        return view('role.petugas.surat-masuk.form', [
+            'active'        => 'surat-masuk',
             'isEdit'        => false,
-            'url'           => url('/petugas/surat-keluar'),
+            'url'           => url('/petugas/surat-masuk'),
             'klasifikasis'  => Klasifikasi::latest()->get(),
         ]);
     }
@@ -42,54 +43,57 @@ class SuratKeluarController extends Controller
         $file = $request->file('file');
         $nameFile = $file->getClientOriginalName();
 
-        Storage::putFileAs('/surat-keluar', $file, $nameFile);
+        Storage::putFileAs('/surat-masuk', $file, $nameFile);
 
-        SuratKeluar::create([
+        SuratMasuk::create([
             'no_surat'          => $request->no_surat,
-            'tujuan'            => $request->tujuan,
+            'asal_surat'        => $request->asal_surat,
             'perihal'           => $request->perihal,
             'klasifikasi_id'    => $request->klasifikasi_id,
             'tgl_surat'         => $request->tgl_surat,
-            'tgl_keluar'        => $request->tgl_keluar,
+            'tgl_masuk'         => $request->tgl_masuk,
             'keterangan'        => $request->keterangan,
             'file'              => $nameFile,
             'user_id'           => Auth::id(),
         ]);
 
-        return redirect('/petugas/surat-keluar')
-            ->with('alert-primary', 'Surat keluar has been created');
+        return redirect('/petugas/surat-masuk')
+            ->with('alert-primary', 'Surat masuk has been created');
     }
 
     public function show($id)
     {
-        //
+        return view('role.petugas.surat-masuk.show', [
+            'active'       => 'surat-masuk',
+            'suratMasuk'   => SuratMasuk::find($id),
+        ]);
     }
 
     public function edit($id)
     {
-        return view('role.petugas.surat-keluar.form', [
-            'active'        => 'surat-keluar',
+        return view('role.petugas.surat-masuk.form', [
+            'active'        => 'surat-masuk',
             'isEdit'        => true,
-            'url'           => url('/petugas/surat-keluar/' . $id),
+            'url'           => url('/petugas/surat-masuk/' . $id),
             'klasifikasis'  => Klasifikasi::latest()->get(),
-            'suratKeluar'   => SuratKeluar::find($id),
+            'suratMasuk'   => SuratMasuk::find($id),
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $suratKeluar = SuratKeluar::find($id);
-        $nameFile = $suratKeluar->file;
+        $suratMasuk = SuratMasuk::find($id);
+        $nameFile = $suratMasuk->file;
 
         if (!empty($file = $request->file('file'))) {
-            Storage::delete('surat-keluar/' . $suratKeluar->file);
+            Storage::delete('surat-keluar/' . $suratMasuk->file);
 
             $nameFile = $file->getClientOriginalName();
-            Storage::putFileAs('/surat-keluar', $file, $nameFile);
+            Storage::putFileAs('/surat-masuk', $file, $nameFile);
         };
 
 
-        $suratKeluar->update([
+        $suratMasuk->update([
             'no_surat'          => $request->no_surat,
             'tujuan'            => $request->tujuan,
             'perihal'           => $request->perihal,
@@ -101,8 +105,8 @@ class SuratKeluarController extends Controller
             'user_id'           => Auth::id(),
         ]);
 
-        return redirect('/petugas/surat-keluar')
-            ->with('alert-warning', 'Surat keluar has been updated');
+        return redirect('/petugas/surat-masuk')
+            ->with('alert-warning', 'Surat masuk has been updated');
     }
 
     public function destroy($id)
@@ -112,17 +116,15 @@ class SuratKeluarController extends Controller
 
     public function download($id)
     {
-        $suratKeluar = SuratKeluar::find($id);
-        return Storage::download('surat-keluar/' . $suratKeluar->file);
+        $suratMasuk = SuratMasuk::find($id);
+        return Storage::download('surat-masuk/' . $suratMasuk->file);
     }
 
-    public function generateQR($id)
+    public function printDisposisi($idDisposisi)
     {
-        $suratKeluar = SuratKeluar::find($id);
-        $fileQR = 'storage/qr-code/surat-keluar/' . str_replace(' ', '-', strtolower($suratKeluar->perihal) . '.svg');
-        $redirectQR = url('/petugas/surat-keluar/download/' . $id);
-        QrCode::format('svg')->size(500)->generate($redirectQR, $fileQR);
-
-        return response()->download($fileQR);
+        return view('role.petugas.surat-masuk.print', [
+            'instansi'    => Instansi::find(1),
+            'disposisi'   => Disposisi::find($idDisposisi),
+        ]);
     }
 }

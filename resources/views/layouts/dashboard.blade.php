@@ -34,11 +34,13 @@
             <nav class="navbar navbar-expand-lg main-navbar">
                 <div class="form-inline mr-auto">
                     <ul class="navbar-nav mr-3">
-                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i
+                                    class="fas fa-bars"></i></a></li>
                     </ul>
                 </div>
                 <ul class="navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                    <li class="dropdown"><a href="#" data-toggle="dropdown"
+                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="{{ asset('images/logo.svg') }}" class="rounded-circle mr-1">
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div>
                         </a>
@@ -50,7 +52,8 @@
                                 <i class="fas fa-cog"></i> Change Password
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item has-icon text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item has-icon text-danger" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
 
@@ -68,7 +71,7 @@
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="#">
-                            <img src="{{ asset('images/logo.svg') }}" class="" width="35">
+                            <img src="{{ asset('images/logo.svg') }}" class="" width="70">
                         </a>
                     </div>
                     <ul class="sidebar-menu">
@@ -86,9 +89,26 @@
                     </ul>
 
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-                        <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                            <i class="fas fa-rocket"></i> version {{ env('APP_VERSION') }}
+                        @if (Auth::user()->role == 'atasan')
+                        <a href="#" class="btn btn-info btn-lg btn-block btn-icon-split">
+                            <i class="fas fa-rocket"></i> <span class="text-capitalize">Role: {{ Auth::user()->role
+                                }}</span>
                         </a>
+                        @endif
+
+                        @if (Auth::user()->role == 'admin')
+                        <a href="#" class="btn btn-danger btn-lg btn-block btn-icon-split">
+                            <i class="fas fa-rocket"></i> <span class="text-capitalize">Role: {{ Auth::user()->role
+                                }}</span>
+                        </a>
+                        @endif
+
+                        @if (Auth::user()->role == 'petugas')
+                        <a href="#" class="btn btn-warning btn-lg btn-block btn-icon-split">
+                            <i class="fas fa-rocket"></i> <span class="text-capitalize">Role: {{ Auth::user()->role
+                                }}</span>
+                        </a>
+                        @endif
                     </div>
                 </aside>
             </div>
@@ -125,4 +145,5 @@
     <script src="https://demo.getstisla.com/assets/js/custom.js"></script>
 
 </body>
+
 </html>

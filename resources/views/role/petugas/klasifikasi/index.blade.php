@@ -11,15 +11,16 @@
         <div class="card">
             <div class="card-header">
                 <h4>
-                    <a href="{{ url('/admin/klasifikasi/create', []) }}" class="btn btn-primary">
+                    <a href="{{ url('/petugas/klasifikasi/create', []) }}" class="btn btn-primary">
                         <i class="fas fa-plus-circle"></i> Create New
 
                     </a>
                 </h4>
                 <div class="card-header-action">
-                    <form action="{{ url('/admin/klasifikasi', []) }}" method="GET">
+                    <form action="{{ url('/petugas/klasifikasi', []) }}" method="GET">
                         <div class="input-group">
-                            <input type="search" class="form-control" name="keyword" placeholder="Search" value="{{ $request['keyword'] ?? '' }}">
+                            <input type="search" class="form-control" name="keyword" placeholder="Search"
+                                value="{{ $request['keyword'] ?? '' }}">
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                             </div>
@@ -43,18 +44,24 @@
                             @forelse ($klasifikasis as $klasifikasi)
                             <tr>
                                 <th scope="row">
-                                    {{ ($klasifikasis->currentPage() - 1) * $klasifikasis->perPage() + $loop->iteration }}
+                                    {{ ($klasifikasis->currentPage() - 1) * $klasifikasis->perPage() + $loop->iteration
+                                    }}
                                 </th>
                                 <td>{{ $klasifikasi->nama }}</td>
                                 <td>{{ $klasifikasi->kode }}</td>
                                 <td>{{ $klasifikasi->uraian }}</td>
                                 <td>
-                                    <a href="{{ url('/admin/klasifikasi/'.$klasifikasi->id.'/edit', []) }}" class="btn btn-sm btn-warning">Edit</a>
-                                    <a class="btn btn-sm btn-danger" href="{{ url('/admin/klasifikasi/'.$klasifikasi->id, []) }}" onclick="event.preventDefault();document.getElementById('delete-{{ $klasifikasi->id }}').submit();">
+                                    <a href="{{ url('/petugas/klasifikasi/'.$klasifikasi->id.'/edit', []) }}"
+                                        class="btn btn-sm btn-warning">Edit</a>
+                                    <a class="btn btn-sm btn-danger"
+                                        href="{{ url('/petugas/klasifikasi/'.$klasifikasi->id, []) }}"
+                                        onclick="event.preventDefault();document.getElementById('delete-{{ $klasifikasi->id }}').submit();">
                                         Delete
                                     </a>
 
-                                    <form id="delete-{{ $klasifikasi->id }}" action="{{ url('/admin/klasifikasi/'.$klasifikasi->id, []) }}" method="POST" class="d-none">
+                                    <form id="delete-{{ $klasifikasi->id }}"
+                                        action="{{ url('/petugas/klasifikasi/'.$klasifikasi->id, []) }}" method="POST"
+                                        class="d-none">
                                         @csrf @method("DELETE")
                                     </form>
 

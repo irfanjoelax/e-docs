@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SuratKeluar extends Model
+class Disposisi extends Model
 {
     use HasFactory;
 
@@ -16,13 +16,8 @@ class SuratKeluar extends Model
      */
     protected $guarded = [];
 
-    public function klasifikasi()
+    public function surat_masuk()
     {
-        return $this->hasOne('App\Models\Klasifikasi', 'id', 'klasifikasi_id');
-    }
-
-    public function user()
-    {
-        return $this->hasOne('App\Models\User', 'id', 'user_id');
+        return $this->belongsTo('App\Models\SuratMasuk');
     }
 }
