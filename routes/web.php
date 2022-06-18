@@ -15,6 +15,7 @@ use App\Http\Controllers\Role\Petugas\HomeController as PetugasHomeController;
 use App\Http\Controllers\Role\Petugas\KlasifikasiSuratController;
 use App\Http\Controllers\Role\Petugas\SuratKeluarController as PetugasSuratKeluarController;
 use App\Http\Controllers\Role\Petugas\SuratMasukController as PetugasSuratMasukController;
+use App\Models\SuratMasuk;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

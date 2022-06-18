@@ -39,6 +39,9 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav navbar-right">
+                    @if (Auth::user()->role == 'atasan')
+                    <x-notification></x-notification>
+                    @endif
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="{{ asset('images/logo.svg') }}" class="rounded-circle mr-1">

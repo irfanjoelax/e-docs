@@ -40,12 +40,23 @@
                         </div>
                     </div>
                     <div class="article-details">
-                        <div class="article-category"><small>Kode: {{ $suratMasuk->klasifikasi->kode }}</small>
-                            <div class="bullet"></div> <small>{{ $suratMasuk->tgl_masuk }}</small>
+                        <div class="article-category">
+                            <small>Kode: {{ $suratMasuk->klasifikasi->kode }}</small>
+                            <div class="bullet"></div>
+                            <small>{{ $suratMasuk->tgl_masuk }}</small>
+                            <div class="bullet"></div>
+                            @if ($suratMasuk->dibaca == 'yes')
+                            <span class="text-success"><i class="fas fa-eye"></i></span>
+                            @else
+                            <span class="text-danger"><i class="fas fa-eye-slash"></i></span>
+                            @endif
                         </div>
                         <div class="article-title">
-                            <h2><a href="{{ url('atasan/surat-masuk/'. $suratMasuk->id, []) }}">{{
-                                    $suratMasuk->perihal }}</a></h2>
+                            <h2>
+                                <a href="{{ url('atasan/surat-masuk/'. $suratMasuk->id, []) }}">
+                                    {{ $suratMasuk->perihal }}
+                                </a>
+                            </h2>
                         </div>
                         <div class="article-user">
                             <img alt="image" src="https://demo.getstisla.com/assets/img/avatar/avatar-1.png">

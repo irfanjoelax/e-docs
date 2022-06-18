@@ -115,10 +115,6 @@
                                 <td>{{ $disposisi->sifat }}</td>
                                 <td>{{ $disposisi->catatan }}</td>
                                 <td>
-                                    <a href="{{ url('/atasan/surat-masuk/disposisi/print/'.$disposisi->id) }}"
-                                        target="_blank" class="btn btn-sm btn-icon btn-dark">
-                                        <i class="fas fa-print"></i>
-                                    </a>
                                     <a href="{{ url('/atasan/surat-masuk/disposisi/delete/'.$disposisi->id, []) }}"
                                         class="btn btn-sm btn-icon btn-danger ml-1">
                                         <i class="fas fa-trash-alt"></i>
