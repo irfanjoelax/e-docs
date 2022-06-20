@@ -16,8 +16,18 @@ class Klasifikasi extends Model
      */
     protected $guarded = [];
 
+    // public function surat_keluar()
+    // {
+    //     return $this->belongsTo('App\Models\SuratKeluar');
+    // }
+
     public function surat_keluar()
     {
-        return $this->belongsTo('App\Models\SuratKeluar');
+        return $this->hasMany('App\Models\SuratKeluar');
+    }
+
+    public function surat_masuk()
+    {
+        return $this->hasMany('App\Models\SuratMasuk');
     }
 }

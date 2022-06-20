@@ -66,4 +66,25 @@ class SuratMasukController extends Controller
         Disposisi::find($idDisposisi)->delete();
         return back();
     }
+
+    public function laporan()
+    {
+        return view('role.atasan.surat-masuk.report', [
+            'active'        => 'laporan-surat-masuk',
+            'suratMasuks'  => SuratMasuk::latest()->paginate(20)
+        ]);
+    }
+
+    public function print(Request $request)
+    {
+        $tgl_awal = $request->tgl_awal;
+        $tgl_akhir = $request->tgl_akhir;
+
+        $suratMasuks = SuratMasuk::whereBetween('tgl_masuk', [$tgl_awal, $tgl_akhir])->latest()->get();
+
+        return view('role.atasan.surat-masuk.print', [
+            'instansi' => Instansi::find(1),
+            'suratMasuks'  => $suratMasuks,
+        ]);
+    }
 }

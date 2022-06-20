@@ -85,7 +85,6 @@
                                             @endif
                                         </div>
                                     </div>
-
                                 </td>
                             </tr>
                             @empty

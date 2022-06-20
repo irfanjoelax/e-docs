@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             JabatanSeeder::class,
             PegawaiSeeder::class,
             InstansiSeeder::class,
+            KeyActivationSeeder::class,
         ]);
     }
 }
